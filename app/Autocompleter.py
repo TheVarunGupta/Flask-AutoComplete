@@ -2,6 +2,7 @@ import time
 import os
 import resource
 import sys
+import gc
 class TrieNode():
     def __init__(self):
         self.children={}
@@ -13,6 +14,7 @@ class Trie():
         self.word_list=[]
         self.count=0
         self.ans=[]
+        
 
     def formTrie(self,keys):
         for key in keys:
@@ -52,6 +54,7 @@ class Trie():
 
     def optimize(self):
         node=self.root
+        print (node.children.keys())
         for key in node.children.keys():
             temp=node.children.get(key)
             self.optimizeUtil(temp,key,self.root,False)
@@ -75,12 +78,22 @@ class Trie():
         elif len(node.children)==1:
             if next(iter(node.children))=='/':
                 if flag==True:
-                    start.children.pop(string[0], None)
+                    nodex=start.children.pop(string[0], None)
+                    #print(nodex)
+                    #nodey=nodex
+                    #while(nodex!=node):
+                     #   nodey=nodex.children[next(iter(nodex.children))]
+                        #print("DELETING THE FATHER OF ",next(iter(nodex.children)))
+                      #  del(nodex)
+                       # nodex=nodey
+                        #gc.collect()
                     start.children[string]=node
                     start.last=True
             else:
                 string+=(next(iter(node.children)))
-                node=node.children[next(iter(node.children))]
+                node2=node.children[next(iter(node.children))]
+                del(node)
+                node=node2
                 self.optimizeUtil(node,string,start,True)
         else:
             for key in node.children.keys():
@@ -99,6 +112,7 @@ class Trie():
             
     def clearSuggestions(self):
         self.word_list=[]
+        self.ans=[]
     '''def suggestionsRec(self, node, word): 
         if len(self.word_list)==5:
             return

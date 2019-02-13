@@ -4,7 +4,8 @@
 <style type="text/css">
 .form-style-6{
 	font: 95% Arial, Helvetica, sans-serif;
-	max-width: 400px;
+	max-width: 500px;
+	height: 250px;
 	margin: 10px auto;
 	padding: 16px;
 	background: #F7F7F7;
@@ -29,6 +30,8 @@
 .form-style-6 textarea,
 .form-style-6 select 
 {
+	height: 150px;
+	width: 100%;
 	-webkit-transition: all 0.30s ease-in-out;
 	-moz-transition: all 0.30s ease-in-out;
 	-ms-transition: all 0.30s ease-in-out;
@@ -37,7 +40,6 @@
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	width: 100%;
 	background: #fff;
 	margin-bottom: 4%;
 	border: 1px solid #ccc;
@@ -96,7 +98,10 @@ function youFunction(){
 		//for (i=0; i<arr.length;i++){
 			//ans+=arr[i]+"\n";
 		//}
-		document.getElementById("T2").innerHTML=str;
+		if (this.status==200)
+			document.getElementById("T2").innerHTML=str;
+		else
+			document.getElementById("T2").innerHTML="Enter a word please"
   }
 
 	request.send();
@@ -104,14 +109,13 @@ function youFunction(){
 
 </script>
 </head>
-<body>
+<body bgcolor="#000000">
 
 <div class="form-style-6">
 <h1>Gupta ji ki dictionary</h1>
-{{t}}
 <form>
-<input id="T1" placeholder ="Enter the word here" onchange="youFunction();" onpaste="this.onchange();" oninput="this.onchange();"/>
-<textarea id ="T2" placeholder="Suggestions appear here"></textarea>
+<input id="T1" placeholder ="Enter the word here" onchange="youFunction();" onpaste="this.onchange();" oninput="this.onchange();"/><br>
+<textarea id ="T2" placeholder="Suggestions appear here" ></textarea>
 </form>
 </div>
 </body>
