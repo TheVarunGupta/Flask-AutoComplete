@@ -3,24 +3,10 @@ import os
 import resource
 import sys
 import gc
-import psutil
-from memory_profiler import profile
-
-def print_memory_used():
-    process = psutil.Process(os.getpid())
-    mem0 = process.memory_info().rss
-    size = 0
-    for obj in gc.get_objects():
-        if isinstance(obj, list):
-            for x in obj:
-                print (x)
-    # print (len(gc.get_objects()))
-    print("Memory of TrieNode: {}",(size))
-    print('Memory Usage',mem0)
-
 class TrieNode():
     def __init__(self):
         self.children={}
+        self.last=False
         
 class Trie():
     def __init__(self):
@@ -43,21 +29,19 @@ class Trie():
             node=node.children[a]
         node.children["/"]=TrieNode()
         node=node.children['/']
+        node.last=True
 
 
 
     
     def printTrie(self):
-        print("inside print trie ")
         self.printTrieUtil(self.root)
         
     def printTrieUtil(self,node):
-        # print("inside printTrieUtil")
-        for key in node.children.keys():
-            # print("->")
-            print("key: {}, children: {} size: {}", (key, node.children[key], sys.getsizeof(node)))
-            temp=node.children.get(key)
-            self.printTrieUtil(temp)
+            for key in node.children.keys():
+                sys.stdout.write(key)
+                temp=node.children.get(key)
+                self.printTrieUtil(temp)
     def checkSize(self):
         self.count=0
         self.checkSizeUtil(self.root)
@@ -68,25 +52,22 @@ class Trie():
             temp=node.children.get(key)
             self.checkSizeUtil(temp)
 
-   # @profile
     def optimize(self):
-        # node=self.root
-        #print (self.root.children.keys())
-        for key in self.root.children.keys():
-            temp=self.root.children.get(key)
+        node=self.root
+        print (node.children.keys())
+        for key in node.children.keys():
+            temp=node.children.get(key)
             self.optimizeUtil(temp,key,self.root,False)
                 
-    # @profile
     def optimizeUtil(self,node,string,start,flag):
         #print(len(node.children))
-        # print_memory_used()
         if node==None:
             return
         if len(node.children)!=1 and flag!=False:
             start.children.pop(string[0], None)
             start.children[string]=node
             if len(node.children)==0:
-                # start.last=True
+                start.last=True
                 start.children['/']=TrieNode()
                 return
             else:
@@ -97,9 +78,17 @@ class Trie():
         elif len(node.children)==1:
             if next(iter(node.children))=='/':
                 if flag==True:
-                    start.children.pop(string[0], None)
+                    nodex=start.children.pop(string[0], None)
+                    #print(nodex)
+                    #nodey=nodex
+                    #while(nodex!=node):
+                     #   nodey=nodex.children[next(iter(nodex.children))]
+                        #print("DELETING THE FATHER OF ",next(iter(nodex.children)))
+                      #  del(nodex)
+                       # nodex=nodey
+                        #gc.collect()
                     start.children[string]=node
-                    
+                    start.last=True
             else:
                 string+=(next(iter(node.children)))
                 node2=node.children[next(iter(node.children))]
@@ -124,6 +113,15 @@ class Trie():
     def clearSuggestions(self):
         self.word_list=[]
         self.ans=[]
+    '''def suggestionsRec(self, node, word): 
+        if len(self.word_list)==5:
+            return
+        if node.last and not (word in self.word_list): 
+            self.word_list.append(word)
+
+        for a,n in node.children.items(): 
+            self.suggestionsRec(n, word + a)'''
+
 
     def mySuggestionsRec(self, node, word): 
         if '/' in node.children:
@@ -216,4 +214,3 @@ while(key!="quit"):
     #process = psutil.Process(os.getpid())
     #print(process.memory_info().rss)
     print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)'''
-
