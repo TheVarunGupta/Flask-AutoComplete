@@ -77,7 +77,7 @@ Now, our model will look like this:<br>
 </ul>
 <h3>Results:</h3>
 <ul>
-<li>We had 1397901 nodes before optimization, we could reduce the number to 959580 nodes. This means we save over 4 lac nodes, since these nodes will not be stored in the memory, we save a lot of load on the device.</li>
+<li>We had 1397901 nodes before optimization, we could reduce the number to 848151 nodes. This means we save over 5 lac nodes, since these nodes will not be stored in the memory, we save a lot of load on the device.</li>
 <li>This optimization is of trie only, there is no hit based system so the model we are using doesn't which show recommendation should be given next, it just shows the next few words in the dictionary. We need to use models like Hidden Markov Model to train that sort of a predictive system.</li>
 </ul>
 <h3> Bugs:</h3>
