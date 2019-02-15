@@ -1,0 +1,9 @@
+DIFFERENCE IN MEMORY AT: 72  <type 'method_descriptor'>
+DIFFERENCE IN MEMORY AT: 216  <type 'member_descriptor'>
+DIFFERENCE IN MEMORY AT: 264  <type 'weakref'>
+DIFFERENCE IN MEMORY AT: -256  <type 'tuple'>
+DIFFERENCE IN MEMORY AT: -984  <type 'dict'>
+DIFFERENCE IN MEMORY AT: -432  <type 'instance'>
+DIFFERENCE IN MEMORY AT: 960  <type 'wrapper_descriptor'>
+DIFFERENCE IN MEMORY AT: 288  <type 'getset_descriptor'>
+DIFFERENCE IN MEMORY AT: 2048  <type 'list'>

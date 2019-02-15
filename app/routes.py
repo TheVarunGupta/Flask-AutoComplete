@@ -33,22 +33,22 @@ t.checkSize()
 
 print("NODESS B4 Optimization",t.count)
 #print(psutil.virtual_memory())
-print_memory_used()
+#print_memory_used()
 # print("11111111111111111111111111")
 # t.printTrie()
 # print("-------------------------")
 t.optimize()
 # gc.collect()
 # t.printTrie()
-print list_memory_used()
+#print list_memory_used()
 
 print("MODEL Optimized")
 
-print_memory_used()
+#print_memory_used()
 t.checkSize()
 print("NODESS After Optimization",t.count)
 #print(psutil.virtual_memory())
-print list_memory_used()
+#print list_memory_used()
 @app.route('/')
 @app.route('/index')
 def index():
@@ -56,7 +56,7 @@ def index():
 
 @app.route('/result/<query>')
 def getResult(query):
-    t.printTrie()
+    #t.printTrie()
     t.clearSuggestions()
     t.myPrinter(query)
     string=""
